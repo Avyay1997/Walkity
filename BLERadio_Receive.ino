@@ -5,7 +5,7 @@
 RF24 myRadio(7, 8);
 
 byte addresses[][6] = {"1"};
-
+int flag=0;
 struct package
 {
   char c=' ';
@@ -25,19 +25,30 @@ void Transmit()
     if(check)
     {
       Serial.println("Ok");
-    }
-    Serial.print("Data Transmitted: ");
+      Serial.print("Data Transmitted: ");
     Serial.println(data.read_num);
+    }
+    else
+    {
+      Transmit();
+    }
+    
     
 }
 void Receive()
 {
   myRadio.startListening();
-    while(myRadio.available())
+    if(myRadio.available())
     {
       myRadio.read(&data, sizeof(data));
     }
-}
+    else if(data.connection == false)
+    {
+      Serial.println("NO DATA RECEIVED");
+      Receive();
+    }
+  }
+
 
 void Vibrate()
 {
@@ -79,8 +90,8 @@ void Vibrate()
     //  delay(10);
    // }
     
-    delay(800);
-    analogWrite(5, 0);
+    //delay(800);
+    //analogWrite(5, 0);
     data.c=' ';
     break;
 
@@ -154,7 +165,7 @@ void Vibrate()
     break;
 
     default:
-    Serial.print("Wrong character entered");
+    Serial.println("Wrong character entered");
     data.c=' ';
   }   
  
@@ -176,22 +187,23 @@ pinMode(5, OUTPUT);
 
 void loop() 
 {
+  
   Receive();
-  delay(500);
+  delay(50);
   Serial.print("Number Received: ");
   Serial.println(data.check_send);
    if(data.connection == false)
    {
     data.read_num=data.check_send+3;
-    Serial.print("Updated Number: ");
-    Serial.println(data.read_num);
     Transmit();
     myRadio.setRetries(15,15);
-    delay(1000);
+    delay(500);
    }
    else
    {
     Serial.println("Connection Established");
+    Serial.print("Character Received: ");
+    Serial.println(data.c);
     Vibrate();
    }
     

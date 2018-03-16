@@ -9,7 +9,7 @@ byte addresses[][6] = {"1"};
 AltSoftSerial BTserial;  
 boolean NL = true;
 
-int send_num=1;
+int send_num=random(0,6);
 struct package
 {
   char c=' ';
@@ -27,7 +27,7 @@ boolean Checkconnection(int checks)
   int check2=checks-3;
   Serial.print("Check2=");
   Serial.println(check2);
-  if(check2 ==data.check_send)
+  if(check2 ==send_num)
   {
     return true;
   }
@@ -42,20 +42,30 @@ void Transmit()
   myRadio.stopListening();
   myRadio.openWritingPipe(addresses[0]);
   boolean check=myRadio.write(&data, sizeof(data));
-  if(check)
+  if(!check && data.connection==false)
+  {
+    Transmit();
+  }
+  else
   {
     Serial.println("ok");
+    
   }
 }
 
 void Receive()
 {
     myRadio.startListening();
-    while(myRadio.available())
+    if(myRadio.available())
     {
       myRadio.read(&data, sizeof(data));
+      data.connection=Checkconnection(data.read_num);
     }
-    data.connection=Checkconnection(data.read_num);
+    else
+    {
+      Serial.println("Data Not Received");
+      Receive();
+    }
 }
 
 void Vibrate()
@@ -174,7 +184,7 @@ void Vibrate()
     break;
 
     default:
-    Serial.print("Wrong character entered");
+    Serial.println("Wrong character entered");
     data.c=' ';
   }
   
@@ -236,17 +246,20 @@ void loop()
 {
   Bluetooth();
   Transmit();
+  delay(50);
   myRadio.setRetries(15,15);
   Serial.print("Number Transmitted: ");
   Serial.println(data.check_send);
   if(data.connection==false)
   {
     Receive();
-    delay(1000);
+    delay(500);
   }
   else
   {
     Serial.println("Connection Established");
+    Serial.print("Character Received: ");
+    Serial.println(data.c);
     Vibrate();
   }
   
