@@ -18,5 +18,4 @@ Walkity also features an SOS button to ensure the safety of the user. Walkity's 
 
 For more info visit:- www.tinyurl.com/walkity
 
-Also if you like the project do hit the like @ https://hackaday.io/project/96482-walkity
 
