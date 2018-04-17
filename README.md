@@ -14,3 +14,9 @@ Walkity also features an SOS button to ensure the safety of the user. Walkity's 
 * support structures for all components in the fusion model
 
 ![alt text](https://hackadaycom.files.wordpress.com/2018/04/walkity-800.png?w=800)
+
+
+For more info visit:- www.tinyurl.com/walkity
+
+Also if you like the project do hit the like @ https://hackaday.io/project/96482-walkity
+
