@@ -1,0 +1,30 @@
+{
+  "name": "walkity",
+  "version": "1.0.0",
+  "description": "Walkity is shoe add-on that uses haptic feedback for navigation. It also features Non-Simulataneous Localization and Mapping to navigate you back to home without an active connection with the phone.",
+  "main": "back.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/anithp/Walkity"
+  },
+  "keywords": [
+    "walkity",
+    "navigation",
+    "N-SLAM",
+    "haptic"
+  ],
+  "author": "chirag-parmar",
+  "license": "ISC",
+  "dependencies": {
+    "@google/maps": "^0.4.6",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "expressjs": "^1.0.1",
+    "fs": "0.0.1-security",
+    "http": "0.0.0",
+    "request": "^2.85.0"
+  }
+}
