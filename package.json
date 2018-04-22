@@ -4,7 +4,8 @@
   "description": "Walkity is shoe add-on that uses haptic feedback for navigation. It also features Non-Simulataneous Localization and Mapping to navigate you back to home without an active connection with the phone.",
   "main": "back.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node back.js"
   },
   "repository": {
     "type": "git",
