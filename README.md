@@ -8,10 +8,9 @@ Walkity also features an SOS button to ensure the safety of the user. Walkity's 
 
 ### To Do:
 * add buttons to fusion design file
-* backend using node.js for google assistant
 * add encryption for the communication channel between the two NRF's
 * press fit fusion model
-* support structures for all components in the fusion model
+* BLE communication in app
 
 ![alt text](https://hackadaycom.files.wordpress.com/2018/04/walkity-800.png?w=800)
 
