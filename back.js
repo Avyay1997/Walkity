@@ -18,6 +18,7 @@ var make_request = function(origin, destination, mode, res){
 		if(!error){
 			body = JSON.parse(body);
 			steps = body["routes"][0]["legs"][0]["steps"]
+			console.log(steps)
 			num_steps = steps.length
 			turn_directions = []
 			distance_to_travel = []
@@ -72,7 +73,7 @@ var make_request = function(origin, destination, mode, res){
 				turn_directions_string += turn_directions[j] + ","
 				distance_string += distance_to_travel[j] + ","
 				duration_string += duration_to_travel[j] + ","
-				end_loc_string += end_loc_latitude[j] + ";" + end_loc_longitude + ","
+				end_loc_string += end_loc_latitude[j] + ";" + end_loc_longitude[j] + ","
 			}
 			var masterString = turn_directions_string + "|" + distance_string + "|" + duration_string + "|" + end_loc_string + "|" + destination_loc
 			res.end(masterString)
