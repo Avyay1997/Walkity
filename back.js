@@ -18,7 +18,6 @@ var make_request = function(origin, destination, mode, res){
 		if(!error){
 			body = JSON.parse(body);
 			steps = body["routes"][0]["legs"][0]["steps"]
-			console.log(steps)
 			num_steps = steps.length
 			turn_directions = []
 			distance_to_travel = []
