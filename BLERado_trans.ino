@@ -2,6 +2,13 @@
 #include<SPI.h>
 #include "RF24.h"
 #include "nRF24L01.h"
+#include "Arduino.h"
+#include <avr/sleep.h>
+#include <avr/power.h>
+#include <avr/wdt.h>
+
+const int buttonPin = 2;  //Interrupt
+int buttonState = 0;
 
 RF24 myRadio(2, 3);
 byte addresses[][6] = {"1"};
@@ -35,6 +42,26 @@ boolean Checkconnection(int checks)
   {
     return false;
   }
+}
+
+void enterSleep(void)
+{
+  set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+  sleep_enable();
+  sleep_mode();
+}
+
+void exitSleep(void)
+{
+  sleep_disable();
+  power_all_enable();
+}
+
+void pin_ISR() {
+  buttonState = digitalRead(buttonPin);
+  if(buttonState == 1){
+    exitSleep();
+    }  
 }
 
 void Transmit()
@@ -161,6 +188,12 @@ void Vibrate()
     data.c=' ';
     break;
 
+    case 'x':
+    data.c=' ';
+    enterSleep();
+    break;
+    
+
     case 'd':
 
     digitalWrite(5, HIGH);
@@ -240,6 +273,12 @@ void setup()
 
   myRadio.printDetails();
   pinMode(5, OUTPUT);
+  digitalWrite(4, HIGH);
+  digitalWrite(7, HIGH);
+
+   pinMode(buttonPin, INPUT);
+  // Attach an interrupt to the ISR vector
+  attachInterrupt(0, pin_ISR, CHANGE);
 }
  
 void loop()
